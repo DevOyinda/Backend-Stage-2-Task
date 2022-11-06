@@ -63,5 +63,19 @@ namespace Backend_Stage_2_Task.Controllers
 
             return Ok(response.FirstOrDefault());                    
         }
+
+        [HttpGet]
+        [Route("/Test")]
+        public IActionResult Recharge()
+        {
+            var res = new Response()
+            {
+                slackUsername = "DevOyinda",
+                operation_type = "oyinda",
+                result = 10
+            };
+
+            return Ok(res);
+        }
     }
 }
