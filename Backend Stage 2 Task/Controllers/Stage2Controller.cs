@@ -12,37 +12,45 @@ namespace Backend_Stage_2_Task.Controllers
     public class Stage2Controller : Controller
     {       
         [HttpPost]
-        [Route("PostCalculation")]
-        public IActionResult PostCalculation([FromQuery]Input input)
+        [Route("/Stage2/PostCalculation")]
+        public IActionResult PostCalculation(Input input)
         {
             var res = new Response();
-            if (input.operation_type == Oyin.Addition)
+
+            List<Response> response = new List<Response>();
+
+
+            if (input.operation_type == "addition")
             {
                 res = new Response()
                 {
                     slackUsername = "DevOyinda",
-                    result = input.x + input.y,
-                    operation_type = input.operation_type.ToString()
+                    operation_type = input.operation_type,
+                    result = Enum.Parse<Oyin>("addition") == Oyin.addition ? input.x + input.y : 0
+                    
                 };
             }
 
-            else if (input.operation_type == Oyin.Substraction)
+
+            else if (input.operation_type == "subtraction")
             {
                 res = new Response()
                 {
                     slackUsername = "DevOyinda",
-                    result = input.x - input.y,
-                    operation_type = input.operation_type.ToString()
+                    operation_type = input.operation_type,
+                    result = Enum.Parse<Oyin>("subtraction") == Oyin.subtraction ? input.x - input.y : 0
+                    
                 };
             }
 
-            else if (input.operation_type == Oyin.Multiplication)
+            else if (input.operation_type == "multiplication")
             {
                 res = new Response()
                 {
                     slackUsername = "DevOyinda",
-                    result = input.x * input.y,
-                    operation_type = input.operation_type.ToString()
+                    operation_type = input.operation_type,
+                    result = Enum.Parse<Oyin>("multiplication") == Oyin.multiplication ? input.x * input.y : 0
+                    
                 };
             }
 
@@ -51,7 +59,9 @@ namespace Backend_Stage_2_Task.Controllers
                 return NoContent();
             }
 
-            return Ok(res);                    
+            response.Add(res);
+
+            return Ok(response.FirstOrDefault());                    
         }
     }
 }

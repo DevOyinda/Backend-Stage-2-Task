@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,18 +17,21 @@ namespace Backend_Stage_2_Task.Model
 
     public class Input
     {
+        [Required]
+        public string operation_type { get; set; }
+
+        [Required]
         public int x { get; set; }
 
-        public int y { get; set; }
-
-        public Oyin operation_type { get; set; }
+        [Required]
+        public int y { get; set; }       
     }
 
 
     public enum Oyin
     {
-        Addition = 1,
-        Substraction,
-        Multiplication
+        addition,
+        subtraction,
+        multiplication
     }
 }
